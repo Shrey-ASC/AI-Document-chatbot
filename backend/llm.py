@@ -1,9 +1,13 @@
+import os
 import requests
 import logging
 
 logger = logging.getLogger(__name__)
 
-GEMINI_API_KEY = "AIzaSyAo77PVosRpiSsSosIp_JE_Kol5ALB0YiE"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    raise RuntimeError("GEMINI_API_KEY environment variable not set")
 
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/"
