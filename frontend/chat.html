@@ -135,11 +135,28 @@ function summarize(){
     answer.innerText = "Generating summary...";
 
     fetch(`${BACKEND_URL}/summarize-document`, {
-        method:'POST'
+        method: 'POST'
     })
-    .then(r => r.json())
-    .then(d => answer.innerText = d.summary)
-    .catch(() => answer.innerText = "Error generating summary");
+    .then(async r => {
+        const data = await r.json();
+
+        // Handle backend error properly
+        if (!r.ok) {
+            answer.innerText = data.detail || "Summary failed";
+            return;
+        }
+
+        // Handle success
+        if (data.summary) {
+            answer.innerText = data.summary;
+        } else {
+            answer.innerText = "No summary returned";
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        answer.innerText = "Error generating summary";
+    });
 }
 </script>
 

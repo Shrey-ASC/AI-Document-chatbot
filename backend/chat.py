@@ -23,7 +23,7 @@ def summarize():
     context = documents_db.get("default", "")
 
     if not context:
-        raise HTTPException(status_code=400, detail="No document uploaded")
+        return {"summary": "No document uploaded yet."}
 
     summary = summarize_document(context)
     return {"summary": summary}
