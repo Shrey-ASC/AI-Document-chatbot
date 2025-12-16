@@ -1,26 +1,96 @@
-
 <!DOCTYPE html>
-<html>
-<head><title>Login</title></head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    width: 320px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e4fd6;
+}
+
+#error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+</style>
+</head>
 <body>
-<h2>Login</h2>
-<input id="email" placeholder="Email"><br>
-<input id="password" type="password"><br>
-<button onclick="login()">Login</button>
+
+<div class="card">
+    <h2>Login</h2>
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <div id="error"></div>
+</div>
 
 <script>
 function login(){
- fetch('http://localhost:8000/login',{
-  method:'POST',
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({
-    email:email.value,
-    password:password.value
-  })
- }).then(r=>r.json()).then(d=>{
-  if(d.message) window.location='chat.html';
- });
+    document.getElementById('error').innerText = ""
+
+    fetch('http://ai-document-chatbot.netlify.app//login',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+            email: email.value,
+            password: password.value
+        })
+    })
+    .then(r => r.json())
+    .then(d => {
+        if(d.message){
+            window.location = 'chat.html'
+        } else {
+            document.getElementById('error').innerText = "Invalid credentials"
+        }
+    })
+    .catch(() => {
+        document.getElementById('error').innerText = "Server error"
+    })
 }
 </script>
+
 </body>
 </html>
