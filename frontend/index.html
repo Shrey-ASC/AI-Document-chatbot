@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -21,26 +22,17 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-input {
+input, button {
     width: 100%;
     padding: 10px;
     margin-bottom: 12px;
     border-radius: 4px;
-    border: 1px solid #ccc;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
     background: #2563eb;
     color: white;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
 }
 
@@ -51,15 +43,15 @@ button:hover {
 #error {
     color: red;
     text-align: center;
-    margin-top: 10px;
     font-size: 14px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
-    <h2>Login</h2>
+    <h2 style="text-align:center;">Login</h2>
     <input id="email" placeholder="Email">
     <input id="password" type="password" placeholder="Password">
     <button onclick="login()">Login</button>
@@ -67,10 +59,12 @@ button:hover {
 </div>
 
 <script>
-function login(){
-    document.getElementById('error').innerText = ""
+const BACKEND_URL = "https://ai-document-backend-f3vv.onrender.com"; 
 
-    fetch('http://ai-document-chatbot.netlify.app//login',{
+function login(){
+    error.innerText = "";
+
+    fetch(`${BACKEND_URL}/login`, {
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
@@ -80,15 +74,10 @@ function login(){
     })
     .then(r => r.json())
     .then(d => {
-        if(d.message){
-            window.location = 'chat.html'
-        } else {
-            document.getElementById('error').innerText = "Invalid credentials"
-        }
+        if(d.message) window.location = "chat.html";
+        else error.innerText = "Invalid credentials";
     })
-    .catch(() => {
-        document.getElementById('error').innerText = "Server error"
-    })
+    .catch(() => error.innerText = "Server error");
 }
 </script>
 

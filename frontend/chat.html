@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>AI Document Chat</title>
+
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -28,10 +29,6 @@ h2 {
     margin-top: 0;
 }
 
-input[type="file"] {
-    margin-bottom: 10px;
-}
-
 textarea {
     width: 100%;
     height: 120px;
@@ -48,13 +45,14 @@ button {
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
+    margin-right: 8px;
 }
 
 button:hover {
     background: #1e4fd6;
 }
 
-#answer {
+.output {
     white-space: pre-wrap;
     background: #f1f5f9;
     padding: 15px;
@@ -70,10 +68,12 @@ button:hover {
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
+    <!-- Upload -->
     <div class="card">
         <h2>Upload Document</h2>
         <input type="file" id="file">
@@ -82,57 +82,64 @@ button:hover {
         <div class="status" id="uploadStatus"></div>
     </div>
 
+    <!-- Ask -->
     <div class="card">
         <h2>Ask a Question</h2>
         <textarea id="q" placeholder="Ask something from the document..."></textarea>
         <br>
         <button onclick="ask()">Ask</button>
-        <div id="answer"></div>
+        <button onclick="summarize()">Generate Summary</button>
+        <div class="output" id="answer"></div>
     </div>
 
 </div>
 
 <script>
+const BACKEND_URL = "https://ai-document-backend-f3vv.onrender.com"; 
+
 function upload(){
-    let f = document.getElementById('file').files[0]
+    const f = document.getElementById('file').files[0];
     if(!f){
-        alert("Please select a file")
-        return
+        alert("Please select a file");
+        return;
     }
 
-    let form = new FormData()
-    form.append('file', f)
+    const form = new FormData();
+    form.append('file', f);
 
-    document.getElementById('uploadStatus').innerText = "Uploading..."
+    uploadStatus.innerText = "Uploading...";
 
-    fetch('http://ai-document-chatbot.netlify.app//upload-document',{
-        method:'POST',
+    fetch(`${BACKEND_URL}/upload-document`, {
+        method: 'POST',
         body: form
     })
     .then(r => r.json())
-    .then(d => {
-        document.getElementById('uploadStatus').innerText = d.message
-    })
-    .catch(() => {
-        document.getElementById('uploadStatus').innerText = "Upload failed"
-    })
+    .then(d => uploadStatus.innerText = d.message)
+    .catch(() => uploadStatus.innerText = "Upload failed");
 }
 
 function ask(){
-    document.getElementById('answer').innerText = "Thinking..."
+    answer.innerText = "Thinking...";
 
-    fetch('http://ai-document-chatbot.netlify.app//chat',{
+    fetch(`${BACKEND_URL}/chat`, {
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({ question: q.value })
     })
     .then(r => r.json())
-    .then(d => {
-        document.getElementById('answer').innerText = d.answer
+    .then(d => answer.innerText = d.answer)
+    .catch(() => answer.innerText = "Error getting response");
+}
+
+function summarize(){
+    answer.innerText = "Generating summary...";
+
+    fetch(`${BACKEND_URL}/summarize-document`, {
+        method:'POST'
     })
-    .catch(() => {
-        document.getElementById('answer').innerText = "Error getting response"
-    })
+    .then(r => r.json())
+    .then(d => answer.innerText = d.summary)
+    .catch(() => answer.innerText = "Error generating summary");
 }
 </script>
 
