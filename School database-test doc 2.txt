@@ -1,0 +1,81 @@
+TEXT DOCUMENT 2: SCHOOL DATABASE 
+Title: Greenwood Valley High School – Academic and Administrative Records
+
+Greenwood Valley High School is a private co-educational institution established in 2002. The school follows the State Board curriculum and emphasizes academic excellence, discipline, and extracurricular development.
+
+Academic Structure
+
+The school offers education from Grade 1 to Grade 12. Academic years are divided into two terms:
+
+Term 1: June to October
+
+Term 2: November to March
+
+Each term includes periodic tests, assignments, and a final examination.
+
+Departments
+
+The school has the following academic departments:
+
+Science Department
+Includes Physics, Chemistry, Biology, and Environmental Science. Practical laboratory sessions are conducted weekly.
+
+Mathematics Department
+Focuses on algebra, geometry, statistics, and calculus for higher grades.
+
+Languages Department
+Offers English, Hindi, and Sanskrit. Students must choose at least two languages.
+
+Social Studies Department
+Covers History, Geography, Civics, and Economics.
+
+Computer Science Department
+Teaches programming fundamentals, databases, networking, and cybersecurity basics from Grade 6 onwards.
+
+Student Evaluation
+
+Students are evaluated based on:
+
+Written examinations (60%)
+
+Assignments and projects (20%)
+
+Class participation and attendance (10%)
+
+Practical and lab work (10%)
+
+A minimum of 35% is required in each subject to pass.
+
+Staff Details
+
+The school employs:
+
+1 Principal
+
+2 Vice Principals
+
+45 Teaching Staff
+
+8 Administrative Staff
+
+10 Support and Maintenance Staff
+
+Facilities
+
+Science laboratories
+
+Computer labs with 60 systems
+
+Sports ground and indoor sports hall
+
+Library with over 12,000 books
+
+School buses covering major city routes
+
+School Timings
+
+Monday to Friday: 8:30 AM – 3:30 PM
+
+Saturday: 8:30 AM – 12:30 PM
+
+Sunday: Closed
